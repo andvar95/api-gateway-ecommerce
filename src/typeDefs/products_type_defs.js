@@ -1,6 +1,6 @@
 const { gql } = require("apollo-server");
 
-const productsTypeDefs = qgl`
+const productsTypeDefs = gql `
     input InputProduct{
         name: String!,
         description: String,
@@ -22,6 +22,12 @@ const productsTypeDefs = qgl`
         in_stock: Boolean
       }
 
+      
+      
+      type statusResponse{
+        status:[String]
+      }
+
       input UpdateProduct{
         id:Int,
         name: String!,
@@ -38,6 +44,7 @@ const productsTypeDefs = qgl`
       type Query{
           getProduct(id:Int!):OutputProduct
           getProducts:[OutputProduct]
+          recommendations:[OutputProduct]
       }
 
     
@@ -45,6 +52,7 @@ const productsTypeDefs = qgl`
           createProduct(product:InputProduct!):OutputProduct
           deleteProduct(id:Int!):OutputProduct
           updateProduct(id:Int!,product:UpdateProduct):OutputProduct
+          checkStock(products:[UpdateProduct]):statusResponse
       }
     
 `;
